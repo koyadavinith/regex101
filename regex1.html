@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Regex Tester</title>
+    <style>
+      /* Add some basic styles for the page */
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        margin-top: 0;
+      }
+      /* Style the form */
+      form {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1rem;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      input[type="text"], textarea {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 0.5rem;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      /* Style the results section */
+      .results {
+        margin-top: 1rem;
+      }
+      .matches {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1rem;
+        overflow-x: auto;
+      }
+      .match {
+        background-color: #fff;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .no-matches {
+        font-style: italic;
+      }
+      .num-matches {
+        margin-top: 0.5rem;
+        font-style: italic;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Regex Tester</h1>
+      <form method="POST" action="/">
+        <label for="pattern">Pattern:</label>
+        <input type="text" name="pattern" id="pattern" value="{{ request.form['pattern'] }}">
+        <label for="text">Text:</label>
+        <textarea name="text" id="text" rows="10">{{ request.form['text'] }}</textarea>
+        <input type="submit" value="Test">
+      </form>
+      <div class="results">
+        {% if matches %}
+          <h2>Matches:</h2>
+          <div class="matches">
+            {% for match in matches %}
+              <div class="match">{{ match }}</div>
+            {% endfor %}
+          </div>
+          <div class="num-matches">{{ matches|length }} matches found.</div>
+        {% else %}
+          <div class="no-matches">No matches found.</div>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
